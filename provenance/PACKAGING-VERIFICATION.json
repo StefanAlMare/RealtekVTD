@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "version": "Beta 1",
+  "source_entries": 281,
+  "sdk_files": 1232,
+  "production_source_changed": false,
+  "accepted_executable_changed": false,
+  "Info_plist_changed": false,
+  "outer_bundle_directory": "RealtekVTDNext.kext",
+  "compiler_flags_changed": false,
+  "native_rebuild_performed": false,
+  "note": "Distribution entrypoint adds automatic manifest selection and the public bundle-directory name; compiler/linker flags and source unit list are unchanged."
+}

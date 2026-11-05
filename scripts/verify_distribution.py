@@ -31,7 +31,7 @@ def main():
     root = Path(__file__).resolve().parents[1]
     identity = json.loads((root / 'beta/IDENTITY.json').read_text())
     source = root / 'driver'
-    manifest_name = 'source-manifest-MAC46-N64-TXPRECHECK-B.json'
+    manifest_name = identity['source_manifest']
     manifest_bytes = (source / manifest_name).read_bytes()
     if digest(manifest_bytes) != identity['source_manifest_sha256']:
         raise SystemExit('Wrong source manifest')
@@ -45,13 +45,13 @@ def main():
     sdk_count = verify_tree(root / 'dependencies/MacKernelSDK', sdk_manifest)
     if sdk_count != 1232:
         raise SystemExit('Unexpected SDK file count')
-    archive = root / 'beta/KEXT-MAC46-N64-TXPRECHECK-B.zip'
+    archive = root / 'beta' / identity['archive_name']
     if digest(archive.read_bytes()) != identity['kext_archive_sha256']:
         raise SystemExit('Wrong kext archive')
     with zipfile.ZipFile(archive) as z:
         if z.testzip() is not None:
             raise SystemExit('ZIP CRC failure')
-        prefix = 'RealtekVTDNextEthernet.kext/Contents/'
+        prefix = identity['bundle_name'] + '/Contents/'
         if set(z.namelist()) != {prefix + 'Info.plist', prefix + 'MacOS/RealtekVTDNextEthernet'}:
             raise SystemExit('Unexpected kext ZIP members')
         binary = z.read(prefix + 'MacOS/RealtekVTDNextEthernet')

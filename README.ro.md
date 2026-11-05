@@ -1,60 +1,37 @@
-# RealtekVTD — RealtekVTDNext
+# RealtekVTDNext
 
-[Download private beta](https://github.com/StefanAlMare/RealtekVTD/releases/tag/v0.21.0-beta.1)
+**Beta 1 — driver Realtek Gigabit Ethernet pentru macOS Intel x86_64**
 
-**Beta privat · un singur driver cumulativ pentru macOS Intel x86_64**
+[Descarcă Beta 1](https://github.com/StefanAlMare/RealtekVTD/releases/tag/beta-1) · [English](README.md) · [Compilare](docs/BUILDING.md) · [Contributori](CONTRIBUTORS.md)
 
-[English](README.md) · [Calculatoare și validare](docs/HARDWARE.md) · [Capabilități și limite](docs/CAPABILITIES.md)
+## Cipuri compatibile
 
-RealtekVTDNext este un driver Ethernet nativ pentru anumite controllere Realtek Gigabit. Aceeași sursă păstrează atât traseul **AppleVTD / DeviceMapper**, cât și **NoIOMMU native64**. Alegerea depinde de hardware și de disponibilitatea reală a mapperului; nu ocolim un mapper activ sau în curs de inițializare.
+| Cip | AppleVTD | NoIOMMU |
+|---|---|---|
+| RTL8411B — XID `0x5C8` | Suportat | Suportat |
+| RTL8168H / RTL8111H — XID `0x541` | Experimental* | Suportat |
+| RTL8168EVL | Necalificat în acest beta | Suportat |
+| RTL8168GU / RTL8111GU — XID `0x509` | Necalificat în acest beta | Suportat |
 
-## Versiunea aleasă pentru beta
+**Dublu mod:** RTL8411B și RTL8168H/8111H, cu limita de mai jos. **Calificate numai NoIOMMU în Beta 1:** RTL8168EVL și RTL8168GU/8111GU XID509.
 
-`v0.21.0-beta.1` distribuie **B NoIOMMU**, versiunea finală acceptată și instalată pe Dell, conform confirmării proprietarului din 5 noiembrie și închiderii etapei din 4 noiembrie 2026.
+*RTL8168H/8111H păstrează AppleVTD, dar pe această cale există un blocaj TX încă nerezolvat. NoIOMMU este referința acceptată a beta-ului. Același PCI ID nu garantează compatibilitatea altor revizii de cip.*
 
-- UUID: `09046FEC-48A9-3EE5-9622-B7EE8F3CD90C`.
-- SHA-256 executabil: `9b00c46b5e123c33eb851e922b0716019dcac3afa842488544f413347d3f2d37`.
-- Sursa exactă: manifestul cu 281 de intrări din `driver/`.
-- Binarul original este păstrat **fără recompilare, modificări sau schimbare de UUID**.
+## Ce oferă Beta 1
 
-LPI1 este checkpointul acceptat anterior, depășit de B. TXDIAG2 este un diagnostic nevalidat fizic și **nu face parte din beta**. Eticheta beta este o identitate de distribuție GitHub; numele lung al buildului din driver rămâne cel original.
+- TX/RX Gigabit, negocierea linkului și flow control PAUSE negociat.
+- Checksum IPv4/IPv6 și segmentare TCP, hardware unde cipul permite și software în celelalte cazuri. RTL8168EVL folosește TSO software.
+- VLAN software și Jumbo până la MTU9000 după pregătirea resurselor; MTU implicit1500.
+- Trasee DMA AppleVTD și NoIOMMU distincte, cu protecții de ownership, sincronizare și oprire sigură.
 
-Pe Dell NoIOMMU s-au raportat **926,1 Mbps TCP TX**, 397.650 predări și completări corespunzătoare, zero resurse TX rămase ocupate și niciun watchdog în sesiunea respectivă. QueueDrops și retransmisiile reziduale nu sunt ascunse. Publicarea nu reprezintă o nouă probă fizică și nu certifică automat toate celelalte calculatoare.
+VLAN hardware, RSS/multiqueue și recuperarea automată completă după blocaj TX nu fac parte din acest beta. [Capabilități](docs/CAPABILITIES.md) · [Limitele validării](docs/VALIDATION.md)
 
-## De unde am pornit
+## De unde am plecat și unde am ajuns
 
-Ideea inițială a fost obținerea unei soluții Realtek în zona AppleVTD folosind driverul **RealtekRTL8111 al lui Mieze**. Încercarea nu a dat rezultatul necesar pe calculatoarele proiectului. Am trecut la construirea unei implementări macOS proprii, pornind de la comportamentul hardware documentat în Linux **r8169 / Realtek PHY**, cu referințe fixate și cu secvențe specifice verificate inclusiv față de Mieze/Realtek.
+Proiectul a pornit de la încercarea de a obține funcționarea necesară cu AppleVTD folosind RealtekRTL8111 al lui Mieze. Am trecut apoi la o implementare macOS proprie, după comportamentul verificat al Linux r8169/Realtek PHY și referințe Realtek/Mieze, extinsă ulterior la NoIOMMU. Ambele trasee DMA și profilurile suportate rămân în aceeași bază cumulativă.
 
-Ulterior am extins aceeași bază și pentru calculatoarele fără AppleVTD. Nu avem un driver HP separat de ASUS, Acer sau Dell: păstrăm nucleul comun și condiții explicite pentru fiecare profil. Nu este un modul Linux încărcat în macOS și nici o extensie care necesită driverul Mieze instalat simultan.
+Beta 1 distribuie executabilul acceptat, fără recompilare. Proiectul continuă să fie în dezvoltare.
 
-Referințele sunt fixate pentru audit. Nu pretindem că acest beta încorporează automat toate modificările din cel mai nou Linux disponibil astăzi.
+**Proiect creat și dezvoltat de [StefanAlMare](https://github.com/StefanAlMare), cu asistență ChatGPT/OpenAI.** [Contributori și referințe](CONTRIBUTORS.md)
 
-## Calculatoarele pe care am lucrat
-
-| Calculator | Controller / profil | AppleVTD ON | AppleVTD OFF / NoIOMMU |
-|---|---|---|---|
-| HP | RTL8168EVL / MAC34 | Traseu păstrat; noile funcții MAC34 nu sunt automat activate cu mapper | TXQ4 acceptat condiționat în domeniul testat |
-| ASUS Haswell | RTL8168GU/RTL8111GU / GU25, CFG25, MAC42, XID509 | Integrat; fără validare fizică GU25 ON declarată | STOPSAFE1 acceptat în domeniul privat |
-| ASUS1 / AsusCalin | RTL8411B / MAC44, XID5C8 | Portări și dovezi distincte ON | Suport explicit NoIOMMU și corecții VLAN/TSO; limitele probelor sunt documentate |
-| Acer | RTL8168H/8111H / MAC46, XID541 | FULL ON cu CONDITIONAL GO; LPI1 aplicat fizic, fără dovada dispariției definitive a întreruperilor | FULL OFF implementat și verificat offline; nu transferăm validarea Dell asupra Acer |
-| Dell curent | RTL8168H/8111H / MAC46, XID541 | Blocajele watchdog rămân o investigație distinctă | **B — referința acceptată a acestui beta** |
-
-Nu inventăm modelele comerciale care nu sunt confirmate în dovezi. Dell Precision 7720 din istoricul RealtekVTD 0.6.x rămâne separat de identificarea Dell curent. GU24/CFG24/XID508 și RTL8168M/XID6C0 sunt profiluri de sursă distincte, fără acceptare fizică nouă în această distribuție.
-
-## Capabilități și limita pe care ne-am oprit
-
-Păstrăm linkul Gigabit, negocierea PAUSE, checksum IPv4/IPv6, TSO4/TSO6, VLAN software și Jumbo, fiecare numai în domeniul permis de hardware și de resurse. Calea hardware și fallbackul software sunt distincte. MAC34 folosește intenționat TSO software și are restricții checksum proprii. MTU implicit rămâne **1500**.
-
-Nu activăm automat toate funcțiile pe un controller doar fiindcă sunt validate pe altul. Nu declarăm finalizate RSS/multiqueue, zero-copy, VLAN hardware, LRO/RSC, TSN/PTP sau recuperarea automată completă după blocaj. Nu declarăm checksumurile ori segmentarea pe fir validate doar din contoarele driverului sau testele host.
-
-Protecțiile DMA/BME/OWN, ownershipul, sincronizările, oprirea verificată și retenția resurselor când oprirea nu poate fi confirmată rămân obligatorii. Un rezultat mai mare într-un benchmark nu justifică eliminarea lor.
-
-## Statut și licență
-
-Proiectul rămâne **în dezvoltare**, dar etapa Dell se încheie la B. Nu reluăm testele și nu introducem modificări suplimentare pentru această publicare. Dezvoltarea poate continua ulterior pentru o problemă concretă sau un obiectiv nou, pe aceeași bază cumulativă.
-
-Depozitul și beta-ul rămân **private până la autorizarea explicită a proprietarului pentru publicare**.
-
-Codul este **GPL-2.0-only**, cu drept de folosire, studiu, modificare și redistribuire în condițiile licenței. Nu introducem o restricție „numai uz personal”. Licențele firmware-ului și SDK-ului se păstrează separat. Accesul privat la GitHub nu schimbă licența codului.
-
-Instrucțiuni: [instalare și rollback manual](docs/INSTALLATION.md), [build](docs/BUILDING.md), [validare și limite](docs/VALIDATION.md), [atribuiri](THIRD_PARTY_NOTICES.md).
+Folosirea sursei și contribuțiile respectă **GPL-2.0-only**. Firmware-ul și SDK-ul au notificări separate. [Licență](LICENSE) · [Atribuiri](THIRD_PARTY_NOTICES.md) · [Instalare / rollback](docs/INSTALLATION.md)

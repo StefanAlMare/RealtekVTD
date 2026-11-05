@@ -1,22 +1,21 @@
-# Distribution build entrypoint
+# Building RealtekVTDNext
 
-The `driver/` tree is an unmodified copy of the sealed native source. Its historical `BUILD_DRIVER.command` is preserved for provenance; that wrapper expects the original development workspace and its complete historical regression closure. For this repository, use `scripts/build_native.py` instead.
+Requires macOS, Xcode command-line tools and Python3.9+. The exact source and pinned MacKernelSDK are included.
 
-The distribution script verifies the selected source manifest and every file of the vendored, pinned MacKernelSDK before generating all 22 compiler commands and the linker/package/verification commands. `dependencies/SDK-MANIFEST.json` pins the SDK files; the SDK commit is `3f750085caa17ec3a7880f11c11bf4f48cd6a164`. The SDK retains its own license and file notices.
-
-For the accepted B source distribution, run from the repository root:
+From the repository root, validate inputs and inspect the commands:
 
 ```sh
-python3 scripts/build_native.py --manifest driver/source-manifest-MAC46-N64-TXPRECHECK-B.json --output "$PWD/build/dry-run" --dry-run
-python3 scripts/build_native.py --manifest driver/source-manifest-MAC46-N64-TXPRECHECK-B.json --output "$PWD/build/rebuild"
+python3 scripts/build_native.py --output "$PWD/build/check" --dry-run
 ```
 
-Use a fresh output directory. Neither command installs a kext, changes a network interface, downloads dependencies, or launches traffic. The actual build requires macOS and Xcode with `xcrun`, `clang++`, `nm`, and `dwarfdump`.
+Compile into a new directory:
 
-This is a **build-only** entrypoint. It does not rerun the original development workspace's entire regression suite. The original test receipts document previously executed tests; they must not be described as tests newly executed by this script.
+```sh
+python3 scripts/build_native.py --output "$PWD/build/rebuild"
+```
 
-A local rebuild is not assumed to have the same UUID or SHA-256 as the accepted beta. `REBUILD-IDENTITY.json` records its actual identity and marks it as not physically validated. The beta download remains the original, previously accepted executable with its published UUID and checksum.
+The script verifies source and SDK manifests, compiles all22 units with the recorded flags, then links and verifies `RealtekVTDNext.kext`. No global optimization flag is added. It performs no installation, downloads or network traffic.
 
-`BUILD-COMMAND-PARITY.json` records an offline comparison against the actual accepted B build: 28 command stages, including all 22 compilation units, match exactly after relocating only the output directory. No compiler optimization flag was added. No sealed source file or original executable was changed.
+This entrypoint builds the native image; it does not replay the complete historical regression workspace. A rebuilt image gets its own measured UUID/SHA-256 and does not inherit the accepted download's physical validation.
 
-Python 3.9 or newer is required. Dry-run validates inputs and prints commands without creating output or compiling. This beta publication only performs that input/command check; the accepted image is not rebuilt.
+The original source and historical build wrappers are retained for provenance. Use the entrypoint above for this distribution. Run `python3 scripts/verify_distribution.py` to verify the packaged accepted image, source and SDK.

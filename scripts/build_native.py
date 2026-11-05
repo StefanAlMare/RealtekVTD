@@ -56,7 +56,7 @@ def make_commands(source, sdk, output):
         commands.append(("compile-" + obj.stem,
                          ["xcrun", "clang++", *flags, "-c", str(unit), "-o", str(obj)]))
         objects.append(str(obj))
-    kext = output / "Release/RealtekVTDNextEthernet.kext"
+    kext = output / "Release/RealtekVTDNext.kext"
     binary = kext / "Contents/MacOS/RealtekVTDNextEthernet"
     commands.extend([
         ("link", ["xcrun", "clang++", "-arch", "x86_64", "-mmacosx-version-min=10.15", "-nostdlib",
@@ -75,13 +75,13 @@ def main():
     root = Path(__file__).resolve().parents[1]
     parser.add_argument("--source", type=Path, default=root / "driver")
     parser.add_argument("--sdk", type=Path, default=root / "dependencies/MacKernelSDK")
-    parser.add_argument("--manifest", type=Path, required=True)
+    parser.add_argument("--manifest", type=Path)
     parser.add_argument("--sdk-manifest", type=Path, default=root / "dependencies/SDK-MANIFEST.json")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--dry-run", action="store_true", help="Verify inputs and print commands; do not compile")
     args = parser.parse_args()
     source, sdk, output = args.source.resolve(), args.sdk.resolve(), args.output.resolve()
-    manifest = args.manifest.resolve()
+    manifest = (args.manifest or source / json.loads((root / "beta/IDENTITY.json").read_text())["source_manifest"]).resolve()
     require(not output.exists(), "Output already exists; use a new directory")
     require(not output.is_relative_to(source) and not output.is_relative_to(sdk),
             "Output must be outside the sealed source and SDK")
