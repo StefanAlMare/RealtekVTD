@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "distribution_tag": "v0.21.0-beta.1",
+  "status": "PRIVATE_BETA_ACCEPTED_DELL_NOIOMMU",
+  "reference": "MAC46-N64-TXPRECHECK-B",
+  "build": "0.21.0-GU25-P14-IDX257-SCAN1-JTXFAST1-FC1-BME1-VLAN1-JUMBO1-TXCSUM1-TSO4-OPT1-PHYMCU1-ECN1-RXCSUM1-RXCSUM2-CSUM6-TSO6-SINGLE1-TXQOBS1-EMITCOPY1-RXNOWAIT1-TXPRECHECK1-RXFILL1-STOPSAFE1-MAC44-TXCSUM1-MAC44-FC1-MAC44-RXCSUM1-MAC44-TSO4-MAC44-TSO6-MAC44-NOIOMMU1-MAC44-VLANTSO1-MAC44-VLANTSO2-MAC44-VLANTSO3-MAC34-NOIOMMU1-MAC34-NOIOMMU2-FC1-MAC34-TXQ1-MAC34-TXQ2-DIAG-MAC34-TXQ3-DIAG-MAC34-TXQ4-MAC46-APPLEVTD1-DIAG-MAC46-FULL-APPLEVTD-ON-MAC46-FULL-NOIOMMU-MAC46-LPI1-MAC46-LPI2-MAC46-N64-TXPRECHECK-B",
+  "uuid": "09046FEC-48A9-3EE5-9622-B7EE8F3CD90C",
+  "executable_sha256": "9b00c46b5e123c33eb851e922b0716019dcac3afa842488544f413347d3f2d37",
+  "executable_bytes": 691824,
+  "kext_archive_sha256": "db03a827d550b618f8d606bff20f3b501f336ec73b3b8ee1d6bf6a36aae1d314",
+  "source_manifest_sha256": "419acecb2e635854cab00927ed3dcb6a37e9ea698ba17ab963d626de35b97c91",
+  "source_manifest_entries": 281,
+  "kernel_import_count": 517,
+  "native_translation_units": 22,
+  "packaging_date": "2026-11-05",
+  "compiled_for_this_publication": false,
+  "physical_tests_for_this_publication": false,
+  "acceptance_authority": "Owner confirmation on 2026-11-05 citing final decision of 2026-11-04 and later Dell physical validation",
+  "physical_scope": "Dell RTL8168H MAC46 XID541 NoIOMMU native64",
+  "AppleVTD_universally_qualified": false,
+  "TXDIAG2_included": false,
+  "visibility": "private"
+}

@@ -1,0 +1,25 @@
+{
+  "commit": "3cdeaef1754ab8155cdd828c958ada3d36e9ad9a",
+  "files": [
+    {
+      "path": "drivers/net/ethernet/realtek/r8169_main.c",
+      "sha256": "318a06c27e43a1da82db01a3ff203a09f2d1790d2ffd1852833a1777568b284c"
+    },
+    {
+      "path": "drivers/net/ethernet/realtek/r8169_phy_config.c",
+      "sha256": "11a8ef375261e3aa3575ac641ea413f3c951d2cbf3b716bfd241b2c9ef78819c"
+    },
+    {
+      "path": "drivers/net/ethernet/realtek/r8169_firmware.c",
+      "sha256": "24f9397bab187dbdcf20918e86740081e2c44934b0427ca7902fa7ac773fa1b9"
+    },
+    {
+      "path": "drivers/net/ethernet/realtek/r8169_firmware.h",
+      "sha256": "d3ccb59f6f0eefd714d1aa7e7b475b42c4951fcad12c1e241be0037f1955c94a"
+    },
+    {
+      "path": "drivers/net/phy/realtek/realtek_main.c",
+      "sha256": "66e328ef8c5def6b59435ec19a0cbd2e9304be38521d5e7d2b19fded25427d87"
+    }
+  ]
+}

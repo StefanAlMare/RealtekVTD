@@ -1,0 +1,1 @@
+RXFILL1 linked identity is generated in ../../RXFILL1_IDENTITY.json. Base UUID/hash must never be relabeled as RXFILL1.

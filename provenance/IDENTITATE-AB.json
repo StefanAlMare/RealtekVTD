@@ -1,0 +1,88 @@
+{
+  "status": "BUILD_READY_OFFLINE_EXPERIMENTAL_AB",
+  "candidate": "MAC46-N64-TXPRECHECK-B",
+  "A_uuid": "23F6F49C-BDAF-3AEA-80C7-585E44E0F5CC",
+  "A_executable_sha256": "ad8c4d365432ab412200b05d9655a2a8eccddfec3307fca604a8ea82f7f52179",
+  "B_uuid": "09046FEC-48A9-3EE5-9622-B7EE8F3CD90C",
+  "B_executable": {
+    "bytes": 691824,
+    "sha256": "9b00c46b5e123c33eb851e922b0716019dcac3afa842488544f413347d3f2d37"
+  },
+  "B_build": "0.21.0-GU25-P14-IDX257-SCAN1-JTXFAST1-FC1-BME1-VLAN1-JUMBO1-TXCSUM1-TSO4-OPT1-PHYMCU1-ECN1-RXCSUM1-RXCSUM2-CSUM6-TSO6-SINGLE1-TXQOBS1-EMITCOPY1-RXNOWAIT1-TXPRECHECK1-RXFILL1-STOPSAFE1-MAC44-TXCSUM1-MAC44-FC1-MAC44-RXCSUM1-MAC44-TSO4-MAC44-TSO6-MAC44-NOIOMMU1-MAC44-VLANTSO1-MAC44-VLANTSO2-MAC44-VLANTSO3-MAC34-NOIOMMU1-MAC34-NOIOMMU2-FC1-MAC34-TXQ1-MAC34-TXQ2-DIAG-MAC34-TXQ3-DIAG-MAC34-TXQ4-MAC46-APPLEVTD1-DIAG-MAC46-FULL-APPLEVTD-ON-MAC46-FULL-NOIOMMU-MAC46-LPI1-MAC46-LPI2-MAC46-N64-TXPRECHECK-B",
+  "source_manifest_entries": 281,
+  "source_manifest_sha256": "419acecb2e635854cab00927ed3dcb6a37e9ea698ba17ab963d626de35b97c91",
+  "native_units": 22,
+  "imports": 517,
+  "native_flags_equal_A": true,
+  "SDK_commit": "3f750085caa17ec3a7880f11c11bf4f48cd6a164",
+  "SDK_members": 1232,
+  "new_policy_cases": 83,
+  "new_policy_assertions": 2688,
+  "focused_commands": 62,
+  "cumulative_commands": 152,
+  "collector_tests": 65,
+  "collector_sha256": "bfa2e9242f90896f5810f3edf1c51a98c0f350fbd48c462520895e1021154d80",
+  "functional_delta": "One strict MAC46 native64 hardwareTSO4 early capacity guard; aggregate counters",
+  "accepted_checkpoint": "MAC46-LPI1",
+  "RTL8168M_LPI2_promotion": "NOT_PROMOTED",
+  "physical_validation": "PENDING",
+  "drops_fix_proven": false,
+  "AppleVTD_ON_watchdog_repaired": false,
+  "automatic_install": false,
+  "traffic_executed": false,
+  "system_network_UI_changed": false,
+  "artifacts": {
+    "KEXT-MAC46-N64-TXPRECHECK-B.zip": {
+      "bytes": 214153,
+      "sha256": "db03a827d550b618f8d606bff20f3b501f336ec73b3b8ee1d6bf6a36aae1d314",
+      "members": 2,
+      "CRC_and_member_SHA256": "PASS"
+    },
+    "KEXT-A-LPI2-ORIGINAL.zip": {
+      "bytes": 212728,
+      "sha256": "43b811e9c70ea5ce1a10c5d9b98c72c0918a1e830cff093cc88d68745ad3b30b"
+    },
+    "ROLLBACK-MAC46-LPI1.zip": {
+      "bytes": 212251,
+      "sha256": "d85546295c1e05b976a4f3e21bad5c7148dacae1856e4f050242ed25c661ac03"
+    },
+    "BAZA-COMPLETA-MAC46-N64-TXPRECHECK-B.zip": {
+      "bytes": 73415204,
+      "sha256": "bc34aa72fb38b6cdae947705a637ef92892c3f5b0a92927e704ab00208386510",
+      "members": 20520,
+      "CRC_and_member_SHA256": "PASS"
+    },
+    "LPI2-A-to-MAC46-N64-TXPRECHECK-B.patch": {
+      "bytes": 57789,
+      "sha256": "417c4550b4019fde0928b8139985ff2cd47bd982ddf1ad0efd7c1aef4fe686a3"
+    },
+    "SURSA-COMPLETA-MAC46-N64-TXPRECHECK-B.txt": {
+      "bytes": 2748746,
+      "sha256": "8b88f394721351e72149732bb3644704a60d1817a923ff0d573252850fe653c0"
+    },
+    "source-manifest-MAC46-N64-TXPRECHECK-B.json": {
+      "bytes": 29710,
+      "sha256": "419acecb2e635854cab00927ed3dcb6a37e9ea698ba17ab963d626de35b97c91"
+    },
+    "MAC46_TXPRECHECK_AB_READONLY.py": {
+      "bytes": 37605,
+      "sha256": "bfa2e9242f90896f5810f3edf1c51a98c0f350fbd48c462520895e1021154d80"
+    },
+    "README-TEST-ROLLBACK.md": {
+      "bytes": 7978,
+      "sha256": "16df0d4db5b6f6fe86213ccba2442cc937433f51fae32613d2878f56d29ac715"
+    },
+    "HANDOVER-RESULT.md": {
+      "bytes": 5646,
+      "sha256": "1507ff9e3c6b4c2996706f6696a3af27bf4cd3e7a8fa4bbec6754da4e78b0c22"
+    },
+    "REZULTATE-OFFLINE.md": {
+      "bytes": 5919,
+      "sha256": "6b1642e2e87b22724591e6889ee0a96b117c01dd6bed06b3a1d26e0ceaab3c0d"
+    },
+    "REBUILD-TXPRECHECK-B.md": {
+      "bytes": 1369,
+      "sha256": "a0d74128bc3e3d8d0b7f02a58d3a63e1c91ab91eaebb13be8541fe8e112176b0"
+    }
+  }
+}

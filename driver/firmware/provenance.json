@@ -1,0 +1,32 @@
+{
+  "repository": "https://gitlab.com/kernel-firmware/linux-firmware",
+  "commit": "50c28bbf4158b310fa8463e8937a61940bff76c4",
+  "files": [
+    {
+      "file": "rtl_nic/rtl8411-2.fw",
+      "url": "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/50c28bbf4158b310fa8463e8937a61940bff76c4/rtl_nic/rtl8411-2.fw",
+      "size": 1040,
+      "sha256": "80dbdacba4d5dfee46b6c2b4e433f6f2eeb756d29ad46bf2362ba20c8ec594b1"
+    },
+    {
+      "file": "rtl_nic/rtl8168h-2.fw",
+      "url": "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/50c28bbf4158b310fa8463e8937a61940bff76c4/rtl_nic/rtl8168h-2.fw",
+      "size": 976,
+      "sha256": "0b4beab008e308f28296c13188ee23edfeff7d865e398a7ade170495c8cec7e6"
+    },
+    {
+      "file": "LICENSE.r8169",
+      "url": "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/50c28bbf4158b310fa8463e8937a61940bff76c4/LICENSES/LICENSE.r8169",
+      "size": 219,
+      "sha256": "f9689ba2640d61e7b4527ad84cbfa6a9f0ec11484e2c9f6b5500197e22c27ecd"
+    },
+    {
+      "file": "rtl_nic/rtl8168e-3.fw",
+      "url": "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/50c28bbf4158b310fa8463e8937a61940bff76c4/rtl_nic/rtl8168e-3.fw",
+      "size": 3872,
+      "sha256": "1287fdd82ff2f60d75c9970c108b49cfd11456ad3fe29c9666b8539a35777dbf",
+      "version": "rtl8168e-3_0.0.4 03/27/12",
+      "license": "LICENSE.r8169; unchanged upstream binary"
+    }
+  ]
+}

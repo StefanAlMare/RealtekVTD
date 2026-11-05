@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "baseline": "MAC46-N64-TXPRECHECK-B",
+  "accepted_uuid": "09046FEC-48A9-3EE5-9622-B7EE8F3CD90C",
+  "sealed_source_entries": 281,
+  "sdk_files": 1232,
+  "compiler_units": 22,
+  "commands_compared": 28,
+  "flags_and_order_equal_original": true,
+  "production_sources_modified": false,
+  "native_rebuild_run": false,
+  "comparison": "Exact argv equality against actual B original after output-path relocation only",
+  "script_sha256": "e4d1ed25c374909d6a513dfe9c9b95281cc97d2b776f4d8741780f06aed1bfe3"
+}

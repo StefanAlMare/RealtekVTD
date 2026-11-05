@@ -1,0 +1,1 @@
+RXFILL1 cumulative native candidate on sealed TXPRECHECK1. Comparison configuration: TXPRECHECK1 OFF, TXQOBS1 ON, RXNOWAIT1 ON, MTU1500. Sleep/wake ASUS already user-confirmed; preserve automated regressions without new manual prerequisite. Performance/wire unvalidated for RXFILL1.

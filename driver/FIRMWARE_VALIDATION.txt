@@ -1,0 +1,6 @@
+Parser C++: PASS
+rtl8411-2.fw: 235 instructions
+rtl8168h-2.fw: 211 instructions
+Build with embedded OSData firmware: PASS
+Binary SHA256: fd60f092562b2f8f029480faf326130908802969f38e0aa17cd1a0b7169696f4
+Hardware execution: NOT TESTED

@@ -1,0 +1,58 @@
+PLAN HARDWARE JTX1 — NU A FOST EXECUTAT DE CODEX
+
+1. Deployment și rollback sunt manuale, făcute de utilizator. Păstrează EXP1 și
+fallback-urile canonice. Revino la pachetul EXP1 exact dacă JTX1 produce regresii;
+înlăturarea candidatului și repornirea elimină trace-ul RAM, fără efecte persistente.
+Nu transfera trace-ul dintr-o sesiune ca și cum ar aparține altei instanțe/versiuni.
+
+2. Confirmă DriverVersion=0.20.5-JTX1-DIAG, chip/AppleVTD/interface, MAC peer,
+MTU la ambele capete și topologia Ethernet. Nu presupune identitatea Dell.
+Trace-ul reține primele 64 de încercări Jumbo de la attach; un bulk transfer Jumbo
+poate umple bufferul înaintea probei. Verifică JTX1Count și JTX1Suppressed înainte.
+Dacă nu mai există loc pentru întregul lot, folosește o sesiune nouă prin procedura
+manuală de deployment/reboot; colectorul nu poate reseta sau reîncărca driverul.
+
+3. MTU 1500 untagged, apoi VLAN 1500: conectivitate, SHA-256 transfer în ambele
+sensuri, multicast/mDNS/IPv6 ND, PAUSE negociat. Aceste probe nu ocupă trace-ul
+Jumbo și sunt regresii JTX1, distincte de PASS-urile EXP1 raportate anterior.
+
+4. MTU 4000 untagged mai întâi pe Intel e1000e, apoi alx. Refolosește metoda DF
+confirmată în probele anterioare; verifică în PCAP IPv4 total length, fără fragmente.
+IPv4 1600 înseamnă ICMP payload 1572; IPv4 4000 înseamnă ICMP payload 3972 sau
+UDP payload 3972 (IPv4 20 + ICMP/UDP 8). Ethernet fără FCS: 1614/4014.
+Testează primul Jumbo după ARP, un lot de 10 după MTU change, apoi încă 10 fără
+MTU change. Documentează timpul real față de tranziție, nu numai un sleep nominal.
+Pentru UDP, trimite controale mici înainte/după și un lot mic de Jumbo cu identități
+corelabile (IP ID/port sursă distinct). sendto() reușit nu este probă de emisie fizică.
+
+5. Citește trace-ul cu:
+python3 runtime/collect_jtx1_readonly.py /cale/director-NOU --interface en0
+Colectorul se execută manual numai pe sistemul cu JTX1 deja încărcat. Așteaptă
+publicarea existentă (~1 Hz), apoi păstrează raw plist/bin/JSON/provenance/SHA256SUMS.
+Dacă Suppressed>0, raportează acoperirea parțială; nu considera cadrele neînregistrate
+ca nepredate către driver. Intrările cu terminal=pending pot fi încă în zbor sau
+exportate înainte de completion; o captură ulterioară poate clarifica fără reset.
+
+6. Captură simultană ASUS egress și Linux ingress, cu snaplen complet și statisticile
+pierderilor capturii. ASUS egress este înainte de hardware, nu dovadă pe fir.
+Deltas RX Linux: good/size-buckets/FCS/length/oversize/missed/address și drops ale
+colectorului. Evenimentele rx_address_errors nu se atribuie unui Jumbo fără corelare.
+Dacă există deja TAP/mirror, folosește-l pentru localizarea fizică. Nu schimba switch,
+EEE, offloads sau registre ca parte a acestei comparații fără o etapă distinctă.
+
+7. În trace: copy prefix_matches_snapshot, lungime, IOVA end/slot/stride, DMA sync
+payload/ring, descriptor FS/LS/EOR/OWN, doorbell, raw completion înainte de clear,
+IRQ cause și cache PHY AGE/valid mask. Nu decoda erori cu măști de generații vechi.
+OWN revenit nu înseamnă livrat. Lipsa completării nu înseamnă automat pierdere pe fir.
+Corelează în special secvențele 1–5 cu descriptorii și sloturile, nu doar count-urile.
+
+8. După fiabilitate untagged 4000: VLAN+4000, integritate bidirecțională, multicast,
+MTU 4000->1500 cu PAUSE 3553->481->3553 unde advertising-ul inițial este acesta,
+link down/up, sleep/wake, watchdog/DMA errors. Repetă ulterior AppleVTD OFF și Dell
+confirmat. Fiecare rezultat este PASS/FAIL/NOT TESTED, separat de testele offline.
+Nu trece fizic la MTU 9000 înainte ca MTU 4000 să fie fiabil.
+
+9. Interpretare: drop înainte de submit = stack/copy/map/queue ASUS; OWN pending =
+consum/doorbell/MAC de investigat; OWN revenit + lipsă Linux rămâne ambiguu fără TAP
+sau alte probe hardware. Un cadru valid observat între capete mută frontiera pierderii.
+JTX2-FIX-EXP se justifică numai după identificarea unei cauze verificabile.

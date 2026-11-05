@@ -1,0 +1,1 @@
+Use the delivered standalone validation/throughput command only when manually requested after loading. It verifies explicit peer Gigabit Ethernet before traffic. No benchmark or installation is launched by this build. Preserve TXPRECHECK1 control-OFF rollback; no intermediate install required.

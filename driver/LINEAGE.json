@@ -1,0 +1,15 @@
+{
+  "build": "0.21.0-GU25-P14-IDX257-SCAN1-JTXFAST1-FC1-BME1-VLAN1-JUMBO1-TXCSUM1-TSO4-OPT1-PHYMCU1-ECN1-RXCSUM1-RXCSUM2-CSUM6-TSO6-SINGLE1-TXQOBS1-EMITCOPY1-RXNOWAIT1-TXPRECHECK1-RXFILL1",
+  "base": "0.21.0-GU25-P14-IDX257-SCAN1-JTXFAST1-FC1-BME1-VLAN1-JUMBO1-TXCSUM1-TSO4-OPT1-PHYMCU1-ECN1-RXCSUM1-RXCSUM2-CSUM6-TSO6-SINGLE1-TXQOBS1-EMITCOPY1-RXNOWAIT1-TXPRECHECK1",
+  "change": "RXFILL1 fresh CPU mbuf normalization and fill in one pass with typed completion/failure; no DMA change",
+  "comparison": {
+    "GU25TXPrecheckEnabled": false,
+    "GU25TXQOBS1Enabled": true,
+    "GU25RXNoWaitEnabled": true,
+    "GU25RXFillEnabled": true
+  },
+  "sleep_wake_ASUS": "PASS_USER_CONFIRMED",
+  "hardware_tested_candidate": false,
+  "wire_verified": false,
+  "performance_gain_demonstrated": false
+}
