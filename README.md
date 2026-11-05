@@ -4,18 +4,25 @@
 
 [Download Beta 1](https://github.com/StefanAlMare/RealtekVTD/releases/tag/beta-1) · [Română](README.ro.md) · [Build](docs/BUILDING.md) · [Contributors](CONTRIBUTORS.md)
 
+**Developed by [StefanAlMare](https://github.com/StefanAlMare), with ChatGPT / OpenAI assistance.**
+
+Driver references:
+
+- **Linux r8169 / Realtek PHY developers** — the driver work used by Ubuntu and other Linux distributions.
+- **Mieze / RealtekRTL8111** — controller-specific implementation references.
+
 ## Compatible chips
 
 | Chip | AppleVTD | NoIOMMU |
 |---|---|---|
 | RTL8411B — XID `0x5C8` | Supported | Supported |
-| RTL8168H / RTL8111H — XID `0x541` | Experimental* | Supported |
+| RTL8168H / RTL8111H — XID `0x541` | Supported* | Supported |
 | RTL8168EVL | Not qualified for this beta | Supported |
 | RTL8168GU / RTL8111GU — XID `0x509` | Not qualified for this beta | Supported |
 
 **Dual mode:** RTL8411B; RTL8168H/8111H with the limitation below. **NoIOMMU-only qualification in Beta 1:** RTL8168EVL and RTL8168GU/8111GU XID509.
 
-*RTL8168H/8111H retains AppleVTD support, but a TX-stall issue remains unresolved on that path. NoIOMMU is the accepted reference for this beta. Other chip revisions are not implied by the shared PCI ID.*
+\* A very rare, apparently random TX stall has been reported with AppleVTD on RTL8168H/RTL8111H. It remains unresolved; the cause is unknown and may involve software or hardware-specific conditions.
 
 ## What Beta 1 provides
 
@@ -31,7 +38,5 @@ Hardware VLAN, RSS/multiqueue and complete automatic TX-stall recovery are outsi
 The project began with an attempt to obtain the required AppleVTD behavior using Mieze's RealtekRTL8111. It then became a native macOS implementation based on reviewed Linux r8169/Realtek PHY behavior and Realtek/Mieze references, and expanded to NoIOMMU. Both DMA paths and supported chip profiles remain in one cumulative codebase.
 
 Beta 1 packages the accepted executable without recompilation. The project remains in development.
-
-**Created and developed by [StefanAlMare](https://github.com/StefanAlMare), with ChatGPT/OpenAI assistance.** [Contributors and references](CONTRIBUTORS.md)
 
 Source use and contributions follow **GPL-2.0-only**. Firmware and SDK retain separate notices. [License](LICENSE) · [Notices](THIRD_PARTY_NOTICES.md) · [Installation / rollback](docs/INSTALLATION.md)

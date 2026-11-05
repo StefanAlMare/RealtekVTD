@@ -8,6 +8,6 @@ Original build evidence covers22 native units,517 linked imports, ABI/vtable/lay
 
 Earlier profile validation is not a fresh physical test of this executable on every chip. Host models and submission counters do not independently validate hardware segmentation or checksum correctness at the receiver.
 
-**Known limitation:** RTL8168H/8111H AppleVTD retains an unresolved TX-stall issue. Invalid-cookie, unconfirmed-stop and quarantine paths primarily have offline coverage. Full automatic recovery is not implemented.
+**Supported with a known limitation:** a very rare, apparently random TX stall has been reported with AppleVTD on RTL8168H/8111H. It remains unresolved; its cause is unknown and may involve software or hardware-specific conditions. Invalid-cookie, unconfirmed-stop and quarantine paths primarily have offline coverage. Full automatic recovery is not implemented.
 
 No additional test campaign is required to use this accepted reference within its documented scope.
